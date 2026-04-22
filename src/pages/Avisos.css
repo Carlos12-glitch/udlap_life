@@ -1,0 +1,105 @@
+.avisos-screen { background: #f9fafb; min-height: 100vh; }
+
+.avisos-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 20px;
+}
+
+.avisos-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.avisos-header h1 { color: white; font-size: 26px; font-weight: 700; margin: 0; }
+.avisos-subtitle { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 16px; }
+
+.badge-new {
+  background: white;
+  color: #f97316;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+.filtros {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.filtro-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.filtro-btn.active {
+  background: white;
+  color: #f97316;
+  border-color: white;
+  font-weight: 600;
+}
+
+.avisos-content { padding: 16px; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9ca3af;
+  letter-spacing: 0.08em;
+  margin: 16px 0 10px;
+}
+
+.aviso-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.aviso-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.aviso-tipo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tipo-icon { font-size: 14px; color: #22c55e; }
+.tipo-label { font-size: 11px; font-weight: 700; color: #22c55e; letter-spacing: 0.05em; }
+
+.aviso-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #a855f7;
+}
+
+.aviso-titulo { font-size: 15px; font-weight: 700; color: #1f2937; margin-bottom: 6px; }
+.aviso-desc { font-size: 13px; color: #6b7280; line-height: 1.5; margin-bottom: 8px; }
+.aviso-fecha { font-size: 11px; color: #9ca3af; }
+
+body.dark-mode .aviso-titulo { color: #f9fafb; }
+body.dark-mode .aviso-card { background: #1f2937; box-shadow: none; }

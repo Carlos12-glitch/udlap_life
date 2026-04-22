@@ -1,0 +1,147 @@
+.escolar-screen { background: #f9fafb; min-height: 100vh; }
+
+.escolar-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 24px;
+}
+
+.escolar-header h1 { color: white; font-size: 26px; font-weight: 700; margin: 0 0 16px; }
+
+.escolar-stats { display: flex; gap: 12px; }
+
+.estat {
+  flex: 1;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.estat-icon { font-size: 20px; }
+.estat-label { font-size: 10px; opacity: 0.8; margin-bottom: 2px; }
+.estat-val { font-size: 24px; font-weight: 700; }
+
+.escolar-content { padding: 16px; }
+
+.section-title { font-size: 16px; font-weight: 700; color: #1f2937; margin: 20px 0 10px; }
+
+.academic-card {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.ac-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ac-icon.blue { background: #4f46e5; }
+.ac-icon.green { background: #22c55e; }
+.ac-icon.purple { background: #a855f7; }
+.ac-icon svg { width: 22px; height: 22px; }
+
+.ac-info { flex: 1; }
+.ac-name { font-size: 15px; font-weight: 600; color: #1f2937; }
+.ac-desc { font-size: 12px; color: #9ca3af; }
+.ac-action { font-size: 12px; color: #f97316; font-weight: 600; white-space: nowrap; }
+
+.tutor-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.tutor-icon { font-size: 36px; }
+.tutor-name { font-size: 15px; font-weight: 600; color: #1f2937; margin-bottom: 4px; }
+.tutor-contact { font-size: 12px; color: #6b7280; margin-bottom: 2px; }
+
+.progress-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.progress-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+.prog-label { font-size: 11px; color: #9ca3af; }
+.prog-val { font-size: 22px; font-weight: 700; color: #f97316; }
+.prog-pct { font-size: 22px; font-weight: 700; color: #f97316; text-align: right; }
+
+.progress-bar { height: 8px; background: #e5e7eb; border-radius: 4px; margin-bottom: 8px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #ef4444, #f97316); border-radius: 4px; }
+.prog-remaining { font-size: 12px; color: #9ca3af; margin: 0; }
+
+.activity-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.activity-item { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.activity-text { font-size: 13px; color: #374151; }
+.activity-tag { background: #f3f4f6; color: #6b7280; font-size: 11px; padding: 3px 8px; border-radius: 8px; white-space: nowrap; }
+.activity-time { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+
+.apoyo-card {
+  background: #f0f9ff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.apoyo-title { font-size: 14px; font-weight: 600; color: #1f2937; margin-bottom: 6px; }
+.apoyo-desc { font-size: 12px; color: #6b7280; margin: 0 0 10px; line-height: 1.5; }
+.apoyo-btn { background: none; border: none; color: #f97316; font-size: 13px; font-weight: 600; cursor: pointer; padding: 0; margin-top: 10px; display: block; }
+
+.apoyo-contacto-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: #374151;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.apoyo-contacto-row svg { flex-shrink: 0; margin-top: 1px; stroke: #6b7280; }
+
+body.dark-mode .escolar-screen { background: #111827; }
+body.dark-mode .section-title { color: #f9fafb; }
+body.dark-mode .academic-card,
+body.dark-mode .tutor-card,
+body.dark-mode .progress-card,
+body.dark-mode .activity-card { background: #1f2937; box-shadow: none; }
+body.dark-mode .ac-name { color: #f9fafb; }
+body.dark-mode .tutor-name { color: #f9fafb; }
+body.dark-mode .tutor-contact { color: #9ca3af; }
+body.dark-mode .progress-card .prog-label { color: #9ca3af; }
+body.dark-mode .progress-card .prog-val { color: #f97316; }
+body.dark-mode .progress-card .prog-pct { color: #f97316; }
+body.dark-mode .progress-card .prog-remaining { color: #9ca3af; }
+body.dark-mode .activity-text { color: #d1d5db; }
+body.dark-mode .activity-tag { background: #374151; color: #9ca3af; }
+body.dark-mode .apoyo-card { background: #1e3a5f; }
+body.dark-mode .apoyo-title { color: #f9fafb; }
+body.dark-mode .apoyo-desc { color: #9ca3af; }
+body.dark-mode .apoyo-contacto-row { color: #d1d5db; }
+body.dark-mode .apoyo-contacto-row svg { stroke: #9ca3af; }

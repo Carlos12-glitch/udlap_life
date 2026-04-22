@@ -1,0 +1,200 @@
+.alimentos-screen { background: #f9fafb; min-height: 100vh; }
+
+.alimentos-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 24px;
+}
+
+.alimentos-header h1 { color: white; font-size: 26px; font-weight: 700; margin: 0 0 4px; }
+.alimentos-header p { color: rgba(255,255,255,0.8); font-size: 14px; margin: 0; }
+
+.alimentos-content { padding: 16px; }
+
+.comedor-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.comedor-header {
+  background: #fff7ed;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  border-bottom: 1px solid #fed7aa;
+}
+
+.comedor-name { font-size: 15px; font-weight: 700; color: #1f2937; }
+.comedor-info { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+
+.menu-tabs { padding: 12px 16px 0; }
+.menu-label { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+
+.dias-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; }
+
+.dia-btn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: none;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dia-btn.active { background: #1f2937; color: white; font-weight: 600; }
+
+.menu-content { padding: 12px 16px 16px; }
+
+.menu-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.menu-key { color: #9ca3af; min-width: 90px; flex-shrink: 0; }
+.menu-val { color: #374151; }
+
+.section-title { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
+
+.caf-row { display: flex; gap: 12px; margin-bottom: 20px; overflow-x: auto; }
+
+.caf-card {
+  min-width: 160px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.caf-card.active { background: #f97316; }
+.caf-card.active .caf-name,
+.caf-card.active .caf-info { color: white; }
+
+.caf-icon { font-size: 24px; margin-bottom: 8px; }
+.caf-name { font-size: 14px; font-weight: 700; color: #1f2937; margin-bottom: 4px; }
+.caf-info { font-size: 12px; color: #9ca3af; margin-bottom: 2px; }
+
+.ver-menu-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  background: #1f2937;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.caf-card.active .ver-menu-btn { background: rgba(0,0,0,0.3); }
+
+.concesionaria {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.conc-icon {
+  width: 40px;
+  height: 40px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.conc-name { font-size: 14px; font-weight: 600; color: #1f2937; margin-bottom: 4px; }
+.conc-info { font-size: 12px; color: #9ca3af; margin-bottom: 2px; }
+
+/* Tipos de menú */
+.tipos-menu-outer {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border: 1.5px solid #fed7aa;
+}
+
+.tipos-menu-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 14px;
+}
+
+.tipo-menu-card {
+  border: 2px solid #0d9488;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.tipo-menu-card:last-child { margin-bottom: 0; }
+
+.tipo-menu-nombre {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0d9488;
+  margin-bottom: 4px;
+}
+
+.tipo-menu-precio {
+  font-size: 20px;
+  font-weight: 800;
+  color: #f97316;
+  margin-bottom: 12px;
+}
+
+.tipo-menu-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tipo-menu-lista li {
+  font-size: 14px;
+  color: #374151;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.tipo-menu-lista li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #6b7280;
+}
+
+body.dark-mode .menu-val { color: #f9fafb; }
+body.dark-mode .menu-key { color: #9ca3af; }
+body.dark-mode .dia-btn { background: #374151; color: #d1d5db; }
+body.dark-mode .dia-btn.active { background: #4b5563; color: #f9fafb; }
+
+body.dark-mode .tipos-menu-outer {
+  background: #1f2937;
+  border-color: #92400e;
+}
+
+body.dark-mode .tipos-menu-title { color: #f9fafb; }
+body.dark-mode .tipo-menu-card { border-color: #134e4a; }
+body.dark-mode .tipo-menu-lista li { color: #d1d5db; }

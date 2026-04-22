@@ -1,0 +1,166 @@
+:root {
+  --font-size-base: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-size-base);
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Tamaño de letra */
+body.font-small #root div,
+body.font-small #root span,
+body.font-small #root p,
+body.font-small #root button,
+body.font-small #root input,
+body.font-small #root label { font-size: 12px !important; }
+body.font-small #root h1 { font-size: 18px !important; }
+body.font-small #root h2 { font-size: 15px !important; }
+body.font-small #root h3 { font-size: 13px !important; }
+
+body.font-large #root div,
+body.font-large #root span,
+body.font-large #root p,
+body.font-large #root button,
+body.font-large #root input,
+body.font-large #root label { font-size: 17px !important; }
+body.font-large #root h1 { font-size: 26px !important; }
+body.font-large #root h2 { font-size: 22px !important; }
+body.font-large #root h3 { font-size: 19px !important; }
+
+/* Modo oscuro */
+body.dark-mode #root {
+  background: #111827;
+  color: #f9fafb;
+}
+body.dark-mode .home-screen,
+body.dark-mode .settings-screen,
+body.dark-mode .profile-screen,
+body.dark-mode .escolar-screen,
+body.dark-mode .pagos-screen,
+body.dark-mode .avisos-screen,
+body.dark-mode .eventos-screen,
+body.dark-mode .horario-screen,
+body.dark-mode .calif-screen,
+body.dark-mode .comunidad-screen,
+body.dark-mode .alimentos-screen,
+body.dark-mode .transporte-screen {
+  background: #111827;
+}
+body.dark-mode .card,
+body.dark-mode .settings-card,
+body.dark-mode .academic-card,
+body.dark-mode .tutor-card,
+body.dark-mode .progress-card,
+body.dark-mode .apoyo-card,
+body.dark-mode .aviso-card,
+body.dark-mode .evento-card,
+body.dark-mode .clase-card,
+body.dark-mode .materia-card,
+body.dark-mode .ruta-card,
+body.dark-mode .boletos-card,
+body.dark-mode .ayuda-card,
+body.dark-mode .comedor-card,
+body.dark-mode .concesionaria,
+body.dark-mode .comunidad-item,
+body.dark-mode .notice-card,
+body.dark-mode .event-card,
+body.dark-mode .search-results,
+body.dark-mode .login-card {
+  background: #1f2937;
+  color: #f9fafb;
+}
+body.dark-mode .settings-user {
+  background: #1f2937;
+}
+body.dark-mode .user-name,
+body.dark-mode .s-name,
+body.dark-mode .class-name,
+body.dark-mode .materia-nombre,
+body.dark-mode .materia-clave,
+body.dark-mode .ac-name,
+body.dark-mode .com-title,
+body.dark-mode .setting-name,
+body.dark-mode .aviso-titulo,
+body.dark-mode .evento-titulo,
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
+  color: #f9fafb;
+}
+body.dark-mode .user-id,
+body.dark-mode .s-email,
+body.dark-mode .s-id,
+body.dark-mode .class-room,
+body.dark-mode .setting-desc,
+body.dark-mode .ac-desc,
+body.dark-mode .com-desc,
+body.dark-mode .aviso-desc,
+body.dark-mode .notice-desc,
+body.dark-mode .notice-time {
+  color: #9ca3af;
+}
+body.dark-mode .home-content,
+body.dark-mode .settings-content,
+body.dark-mode .escolar-content,
+body.dark-mode .pagos-content,
+body.dark-mode .avisos-content,
+body.dark-mode .eventos-content,
+body.dark-mode .horario-content,
+body.dark-mode .calif-content,
+body.dark-mode .comunidad-content,
+body.dark-mode .alimentos-content,
+body.dark-mode .transporte-content {
+  background: #111827;
+}
+body.dark-mode .search-bar {
+  background: #1f2937;
+  color: #f9fafb;
+}
+body.dark-mode .search-result-item:hover {
+  background: #374151;
+}
+body.dark-mode .search-result-title { color: #f9fafb; }
+body.dark-mode .form-group input {
+  background: #374151;
+  color: #f9fafb;
+  border-color: #4b5563;
+}
+body.dark-mode .section-title,
+body.dark-mode .section-label { color: #9ca3af; }
+
+#root {
+  width: 390px;
+  min-height: 100vh;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 400px) {
+  #root {
+    width: 100%;
+    box-shadow: none;
+  }
+}
+
+/* Botón regresar universal en headers */
+.header-back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
