@@ -13,6 +13,7 @@ Ingresar desde el navegador web a la dirección proporcionada por el equipo de d
 Ejemplo:
 
 http://localhost:5173/
+
 Paso 2: Iniciar sesión
 
 En la pantalla principal, capturar:
