@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase'
+import { auth, db } from '../firebase'
 import { saveCache, loadCache } from '../utils/cache'
 import FavoritoBtn from '../components/FavoritoBtn'
 import BottomNav from '../components/BottomNav'
@@ -17,32 +17,39 @@ export default function Horario() {
   const [vista, setVista] = useState('lista') // 'lista' | 'calendario'
 
   useEffect(() => {
-    getDocs(collection(db, 'Horario')).then(snap => {
-      const data = {}
-      snap.docs.forEach(doc => {
-        const raw = doc.data()
-        const clean = {}
-        Object.entries(raw).forEach(([k, v]) => {
-          clean[k.trim()] = typeof v === 'string' ? v.trim() : v
+    const unsub = auth.onAuthStateChanged(user => {
+      if (!user) return
+      const id = user.email.split('@')[0]
+      getDocs(collection(db, 'usuarios', id, 'horario')).then(snap => {
+        const data = {}
+        snap.docs.forEach(doc => {
+          const raw = doc.data()
+          const clean = {}
+          Object.entries(raw).forEach(([k, v]) => {
+            clean[k.trim()] = typeof v === 'string' ? v.trim() : v
+          })
+          const c = {
+            dia: clean['día'] || clean['dia'],
+            hora: clean.hora,
+            nombre: clean.nombre,
+            aula: clean.aula,
+            prof: clean.profesor || clean.prof,
+            tipo: clean.tipo,
+          }
+          if (!data[c.dia]) data[c.dia] = []
+          data[c.dia].push(c)
         })
-        const c = {
-          dia: clean['día'] || clean['dia'],
-          hora: clean.hora,
-          nombre: clean.nombre,
-          aula: clean.aula,
-          prof: clean.profesor || clean.prof,
-          tipo: clean.tipo,
-        }
-        if (!data[c.dia]) data[c.dia] = []
-        data[c.dia].push(c)
-      })
-      dias.forEach(d => { if (data[d]) data[d].sort((a, b) => a.hora.localeCompare(b.hora)) })
-      setClases(data)
-      saveCache('horario', data)
-      setLoading(false)
-    }).catch(err => console.error('Error Firestore:', err))
+        dias.forEach(d => { if (data[d]) data[d].sort((a, b) => a.hora.localeCompare(b.hora)) })
+        setClases(data)
+        saveCache('horario', data)
+        setLoading(false)
+      }).catch(err => console.error('Error Firestore:', err))
+    })
+    return () => unsub()
   }, [])
 
+  // Genera un archivo .ics (iCalendar) con eventos semanales recurrentes hasta fin de semestre.
+  // En iOS Safari, descargar un .ics abre directamente el diálogo "Agregar al Calendario".
   function exportar() {
     // Primera fecha de cada día en el semestre Primavera 2026
     const FECHA_INICIO = {

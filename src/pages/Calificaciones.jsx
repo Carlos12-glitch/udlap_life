@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase'
+import { auth, db } from '../firebase'
 import { saveCache, loadCache } from '../utils/cache'
 import FavoritoBtn from '../components/FavoritoBtn'
 import BottomNav from '../components/BottomNav'
 import './Calificaciones.css'
 
+// Más reciente primero — el alumno normalmente quiere ver el periodo actual al abrir.
 const ORDEN_PERIODOS = ['Primavera 2026', 'Otoño 2025', 'Primavera 2025']
 
 export default function Calificaciones() {
@@ -17,7 +18,10 @@ export default function Calificaciones() {
   const [loading, setLoading] = useState(!loadCache('calificaciones'))
 
   useEffect(() => {
-    getDocs(collection(db, 'calificaciones')).then(snap => {
+    const unsub = auth.onAuthStateChanged(user => {
+      if (!user) return
+      const id = user.email.split('@')[0]
+      getDocs(collection(db, 'usuarios', id, 'calificaciones')).then(snap => {
       const grupos = {}
       snap.docs.forEach(doc => {
         const raw = doc.data()
@@ -43,7 +47,9 @@ export default function Calificaciones() {
       setPeriodos(lista)
       saveCache('calificaciones', lista)
       setLoading(false)
+      })
     })
+    return () => unsub()
   }, [])
 
   if (loading) return <div style={{textAlign:'center', padding:64, color:'#6b7280'}}>Cargando calificaciones...</div>

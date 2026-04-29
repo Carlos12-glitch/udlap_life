@@ -7,11 +7,13 @@ import FavoritoBtn from '../components/FavoritoBtn'
 import BottomNav from '../components/BottomNav'
 import './Transcript.css'
 
+// Más antiguo primero — el transcript académico se lee cronológicamente, al revés de Calificaciones.
 const ORDEN_CRONOLOGICO = ['Primavera 2025', 'Otoño 2025', 'Primavera 2026']
 
 export default function Transcript() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(null)
+  const [openCarrera, setOpenCarrera] = useState(null)
   const [usuario, setUsuario] = useState(() => loadCache('usuario'))
   const [historial, setHistorial] = useState(() => loadCache('calificaciones') || [])
   const [loading, setLoading] = useState(!loadCache('usuario') || !loadCache('calificaciones'))
@@ -34,7 +36,7 @@ export default function Transcript() {
       }
 
       // Historial de calificaciones agrupado por periodo
-      const calSnap = await getDocs(collection(db, 'calificaciones'))
+      const calSnap = await getDocs(collection(db, 'usuarios', id, 'calificaciones'))
       const grupos = {}
       calSnap.docs.forEach(d => {
         const raw = d.data()
@@ -65,6 +67,8 @@ export default function Transcript() {
   )
 
   const carrera = usuario?.Carrera ?? usuario?.carrera ?? '—'
+  const carreras = usuario?.carreras ?? null
+  const progresoCarreras = usuario?.progresoCarreras ?? null
   const periodoIngreso = usuario?.['Periodo de ingreso'] ?? usuario?.['periodo de ingreso'] ?? '—'
   const nombre = usuario?.nombre ?? '—'
   const id = usuario?.id ?? '—'
@@ -100,15 +104,54 @@ export default function Transcript() {
 
         <div className="t-section">
           <div className="t-section-title">Datos generales del programa</div>
-          <div className="t-card">
-            <div className="t-program">{carrera}</div>
-            <div className="t-row"><span>Tipo de programa:</span><strong>Presencial</strong></div>
-            <div className="t-row"><span>Periodo de ingreso:</span><strong>{periodoIngreso}</strong></div>
-            <div className="t-row"><span>Última inscripción:</span><strong>{ultimaInscripcion}</strong></div>
-            <div className="t-row"><span>Fecha de grado conferido:</span><strong>—</strong></div>
-            <div className="t-row"><span>Estatus del alumno:</span><strong className="green">Regular</strong></div>
-            <div className="t-row"><span>Estatus transcript:</span><strong className="green">Abierto</strong></div>
-          </div>
+          {carreras ? (
+            carreras.map((c, i) => {
+              const prog = progresoCarreras?.[i]
+              const isOpen = openCarrera === i
+              return (
+                <div className="t-card" key={i} style={{ marginBottom: 10, padding: 0, overflow: 'hidden' }}>
+                  <button
+                    onClick={() => setOpenCarrera(isOpen ? null : i)}
+                    style={{
+                      width: '100%', display: 'flex', justifyContent: 'space-between',
+                      alignItems: 'center', padding: '12px 16px', background: 'none',
+                      border: 'none', cursor: 'pointer', textAlign: 'left',
+                    }}
+                  >
+                    <div>
+                      <div className="t-program" style={{ margin: 0 }}>{c}</div>
+                      <div style={{ fontSize: 11, color: '#f97316', fontWeight: 600, marginTop: 2 }}>Carrera {i + 1}</div>
+                    </div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2"
+                      style={{ width: 18, height: 18, flexShrink: 0, transform: isOpen ? 'rotate(180deg)' : '', transition: '0.2s' }}>
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+                  {isOpen && (
+                    <div style={{ padding: '0 16px 12px' }}>
+                      <div className="t-row"><span>Tipo de programa:</span><strong>Presencial</strong></div>
+                      <div className="t-row"><span>Periodo de ingreso:</span><strong>{periodoIngreso}</strong></div>
+                      <div className="t-row"><span>Última inscripción:</span><strong>{ultimaInscripcion}</strong></div>
+                      {prog && <div className="t-row"><span>Créditos acreditados:</span><strong>{prog.creditos} / {prog.total}</strong></div>}
+                      <div className="t-row"><span>Fecha de grado conferido:</span><strong>—</strong></div>
+                      <div className="t-row"><span>Estatus del alumno:</span><strong className="green">Regular</strong></div>
+                      <div className="t-row"><span>Estatus transcript:</span><strong className="green">Abierto</strong></div>
+                    </div>
+                  )}
+                </div>
+              )
+            })
+          ) : (
+            <div className="t-card">
+              <div className="t-program">{carrera}</div>
+              <div className="t-row"><span>Tipo de programa:</span><strong>Presencial</strong></div>
+              <div className="t-row"><span>Periodo de ingreso:</span><strong>{periodoIngreso}</strong></div>
+              <div className="t-row"><span>Última inscripción:</span><strong>{ultimaInscripcion}</strong></div>
+              <div className="t-row"><span>Fecha de grado conferido:</span><strong>—</strong></div>
+              <div className="t-row"><span>Estatus del alumno:</span><strong className="green">Regular</strong></div>
+              <div className="t-row"><span>Estatus transcript:</span><strong className="green">Abierto</strong></div>
+            </div>
+          )}
         </div>
 
         <div className="t-section">

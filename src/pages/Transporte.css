@@ -197,6 +197,47 @@ body.dark-mode .ruta-nueva-nombre { color: #2dd4bf; }
 body.dark-mode .boletos-card { background: #1f2937; box-shadow: none; }
 body.dark-mode .boletos-card h3 { color: #f9fafb; }
 
+/* ── Ruta mapa overlay ── */
+.ruta-mapa-overlay {
+  position: fixed;
+  inset: 0;
+  background: #f9fafb;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ruta-mapa-header {
+  background: linear-gradient(135deg, #ef4444, #e07040);
+  padding: 50px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.ruta-mapa-contenedor {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ruta-mapa-footer {
+  background: white;
+  padding: 10px 16px;
+  text-align: center;
+  flex-shrink: 0;
+  border-top: 1px solid #f3f4f6;
+}
+
+.ruta-mapa-hint {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+body.dark-mode .ruta-mapa-overlay { background: #111827; }
+body.dark-mode .ruta-mapa-footer { background: #1f2937; border-top-color: #374151; }
+
 /* ── Horario overlay ── */
 .horario-overlay {
   position: fixed;

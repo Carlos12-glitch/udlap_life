@@ -115,20 +115,25 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    getDocs(collection(db, 'Horario')).then(snap => {
-      const todo = {}
-      snap.docs.forEach(d => {
-        const raw = d.data()
-        const clean = {}
-        Object.entries(raw).forEach(([k, v]) => { clean[k.trim()] = typeof v === 'string' ? v.trim() : v })
-        const dia = clean['día'] || clean['dia']
-        if (!todo[dia]) todo[dia] = []
-        todo[dia].push(clean)
+    const unsub = auth.onAuthStateChanged(user => {
+      if (!user) return
+      const id = user.email.split('@')[0]
+      getDocs(collection(db, 'usuarios', id, 'horario')).then(snap => {
+        const todo = {}
+        snap.docs.forEach(d => {
+          const raw = d.data()
+          const clean = {}
+          Object.entries(raw).forEach(([k, v]) => { clean[k.trim()] = typeof v === 'string' ? v.trim() : v })
+          const dia = clean['día'] || clean['dia']
+          if (!todo[dia]) todo[dia] = []
+          todo[dia].push(clean)
+        })
+        Object.values(todo).forEach(arr => arr.sort((a, b) => (a.hora || '').localeCompare(b.hora || '')))
+        saveCache('horario', todo)
+        setClasesHoy(todo[diaHoy] || [])
       })
-      Object.values(todo).forEach(arr => arr.sort((a, b) => (a.hora || '').localeCompare(b.hora || '')))
-      saveCache('horario', todo)
-      setClasesHoy(todo[diaHoy] || [])
     })
+    return () => unsub()
   }, [])
 
   useEffect(() => {
@@ -161,7 +166,8 @@ export default function Home() {
     )
   }
 
-  // Refresh favorites when Home is focused
+  // Los favoritos se guardan en localStorage desde otras páginas sin notificar a Home,
+  // por lo que se re-leen al volver el foco a la ventana para mantenerse sincronizados.
   useEffect(() => {
     const refresh = () => setFavoritos(getFavoritos())
     window.addEventListener('focus', refresh)

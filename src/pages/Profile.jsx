@@ -18,6 +18,8 @@ export default function Profile() {
         getDoc(doc(db, 'usuarios', id)).then(snap => {
           if (snap.exists()) {
             const raw = snap.data()
+            // Los campos de Firestore usan casing inconsistente entre usuarios
+            // (ej. 'Carrera' vs 'carrera', 'Dirección' vs 'Dirección ') — se normaliza aquí.
             const data = {
               nombre: raw.nombre?.trim(),
               id: raw.id,
@@ -25,6 +27,7 @@ export default function Profile() {
               creditos: raw.creditos,
               semestre: raw.semestre,
               carrera: raw.Carrera ?? raw.carrera,
+              carreras: raw.carreras ?? null,
               periodoIngreso: raw['Periodo de ingreso']?.trim() ?? raw.periodoIngreso,
               correo: raw.correo?.trim(),
               telefono: raw.telefono?.trim(),
@@ -77,7 +80,15 @@ export default function Profile() {
         <div className="info-section">
           <h3>Información académica</h3>
           <div className="info-card">
-            <div className="info-row"><span className="info-label">Carrera</span><span className="info-val">{usuario?.carrera || '-'}</span></div>
+            {usuario?.carreras
+              ? usuario.carreras.map((c, i) => (
+                  <div className="info-row" key={i}>
+                    <span className="info-label">Carrera {i + 1}</span>
+                    <span className="info-val">{c}</span>
+                  </div>
+                ))
+              : <div className="info-row"><span className="info-label">Carrera</span><span className="info-val">{usuario?.carrera || '-'}</span></div>
+            }
             <div className="info-row"><span className="info-label">Promedio</span><span className="info-val">{usuario?.promedio || '-'}</span></div>
             <div className="info-row"><span className="info-label">Periodo de ingreso</span><span className="info-val">{usuario?.periodoIngreso || '-'}</span></div>
           </div>

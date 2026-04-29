@@ -19,27 +19,33 @@ const LUGAR_ICONOS = {
 // Coordenadas verificadas con Nominatim — campus UDLAP San Andrés Cholula
 // Bounding box campus: lat 19.051–19.058, lon -98.296–-98.279
 const lugares = [
-  { nombre: 'Biblioteca',                    tipo: 'Académico',     color: '#3b82f6', coords: [19.0550, -98.2843] },
-  { nombre: 'Edificio de Ingeniería (BI)',    tipo: 'Académico',     color: '#3b82f6', coords: [19.0558, -98.2865] },
-  { nombre: 'Edificio de Negocios (MN)',      tipo: 'Académico',     color: '#3b82f6', coords: [19.0553, -98.2872] },
-  { nombre: 'Edificio de Artes y Ciencias',  tipo: 'Académico',     color: '#3b82f6', coords: [19.0556, -98.2855] },
-  { nombre: 'Laboratorios A',                tipo: 'Académico',     color: '#3b82f6', coords: [19.0561, -98.2877] },
-  { nombre: 'Auditorio Miguel Covarrubias',  tipo: 'Instalaciones', color: '#a855f7', coords: [19.0545, -98.2858] },
-  { nombre: 'Centro Estudiantil',            tipo: 'Instalaciones', color: '#a855f7', coords: [19.0538, -98.2839] },
-  { nombre: 'Rectoría',                      tipo: 'Instalaciones', color: '#a855f7', coords: [19.0548, -98.2833] },
-  { nombre: 'Ágora',                         tipo: 'Instalaciones', color: '#a855f7', coords: [19.0534, -98.2843] },
-  { nombre: 'Comedor Américas',              tipo: 'Comida',        color: '#f97316', coords: [19.0535, -98.2850] },
-  { nombre: 'Punta del Cielo',              tipo: 'Comida',        color: '#f97316', coords: [19.0533, -98.2837] },
-  { nombre: 'Dominicana',                   tipo: 'Comida',        color: '#f97316', coords: [19.0563, -98.2883] },
-  { nombre: 'Colegio Cain-Murray',           tipo: 'Residencia',    color: '#22c55e', coords: [19.0571, -98.2873] },
-  { nombre: 'Colegio Ray Lindley',           tipo: 'Residencia',    color: '#22c55e', coords: [19.0568, -98.2857] },
-  { nombre: 'Colegio Ignacio Bernal',        tipo: 'Residencia',    color: '#22c55e', coords: [19.0566, -98.2842] },
-  { nombre: 'Colegio Morris "Moe" Williams', tipo: 'Residencia',    color: '#22c55e', coords: [19.0573, -98.2862] },
-  { nombre: 'Gimnasio MOE Williams',         tipo: 'Deportivo',     color: '#ef4444', coords: [19.0576, -98.2868] },
-  { nombre: 'Canchas de Fútbol',             tipo: 'Deportivo',     color: '#ef4444', coords: [19.0578, -98.2848] },
-  { nombre: 'Alberca Olímpica',              tipo: 'Deportivo',     color: '#ef4444', coords: [19.0575, -98.2885] },
-  { nombre: 'Tienda Universitaria',          tipo: 'Servicios',     color: '#6b7280', coords: [19.0540, -98.2827] },
-  { nombre: 'Salud Estudiantil',             tipo: 'Servicios',     color: '#6b7280', coords: [19.0543, -98.2822] },
+  // Académico — OSM verified: Biblioteca, Labs Ciencias, Artes y Humanidades
+  { nombre: 'Biblioteca',                    tipo: 'Académico',     color: '#3b82f6', coords: [19.0544, -98.2831] },
+  { nombre: 'Edificio de Ingeniería (BI)',    tipo: 'Académico',     color: '#3b82f6', coords: [19.0547, -98.2815] },
+  { nombre: 'Edificio de Negocios (MN)',      tipo: 'Académico',     color: '#3b82f6', coords: [19.0528, -98.2835] },
+  { nombre: 'Edificio de Artes y Ciencias',  tipo: 'Académico',     color: '#3b82f6', coords: [19.0528, -98.2808] },
+  { nombre: 'Laboratorios A',                tipo: 'Académico',     color: '#3b82f6', coords: [19.0543, -98.2808] },
+  // Instalaciones — OSM verified: Centro Estudiantil (CE), Auditorio (Jenkins way)
+  { nombre: 'Auditorio Miguel Covarrubias',  tipo: 'Instalaciones', color: '#a855f7', coords: [19.0535, -98.2826] },
+  { nombre: 'Centro Estudiantil',            tipo: 'Instalaciones', color: '#a855f7', coords: [19.0538, -98.2838] },
+  { nombre: 'Rectoría',                      tipo: 'Instalaciones', color: '#a855f7', coords: [19.0530, -98.2821] },
+  { nombre: 'Ágora',                         tipo: 'Instalaciones', color: '#a855f7', coords: [19.0531, -98.2811] },
+  // Comida — OSM verified: Comedor
+  { nombre: 'Comedor Américas',              tipo: 'Comida',        color: '#f97316', coords: [19.0539, -98.2840] },
+  { nombre: 'Punta del Cielo',              tipo: 'Comida',        color: '#f97316', coords: [19.0536, -98.2837] },
+  // Residencia — OSM verified: Colegio Ray Lindley; Bernal dormitorio blocks ~19.0512
+  { nombre: 'Colegio Cain-Murray',           tipo: 'Residencia',    color: '#22c55e', coords: [19.0547, -98.2843] },
+  { nombre: 'Colegio Ray Lindley',           tipo: 'Residencia',    color: '#22c55e', coords: [19.0533, -98.2851] },
+  { nombre: 'Colegio Ignacio Bernal',        tipo: 'Residencia',    color: '#22c55e', coords: [19.0515, -98.2801] },
+  // Deportivo — OSM verified: pool 19.0541,-98.2873; soccer pitch 19.0557,-98.2864
+  { nombre: 'Gimnasio MOE Williams',         tipo: 'Deportivo',     color: '#ef4444', coords: [19.0543, -98.2870] },
+  { nombre: 'Canchas de Fútbol',             tipo: 'Deportivo',     color: '#ef4444', coords: [19.0557, -98.2864] },
+  { nombre: 'Alberca Olímpica',              tipo: 'Deportivo',     color: '#ef4444', coords: [19.0541, -98.2873] },
+  { nombre: 'Templo del Dolor',             tipo: 'Deportivo',     color: '#ef4444', coords: [19.055111, -98.285111] },
+  { nombre: 'Pista de Atletismo',           tipo: 'Deportivo',     color: '#ef4444', coords: [19.0555, -98.2877] },
+  // Servicios — OSM verified: Servicios Médicos UDLAP
+  { nombre: 'Tienda Universitaria',          tipo: 'Servicios',     color: '#6b7280', coords: [19.0536, -98.2833] },
+  { nombre: 'Salud Estudiantil',             tipo: 'Servicios',     color: '#6b7280', coords: [19.0538, -98.2847] },
 ]
 
 const categorias = ['Todos', 'Académico', 'Comida', 'Residencia', 'Instalaciones', 'Deportivo', 'Servicios']
@@ -57,6 +63,9 @@ function createIcon(color) {
   })
 }
 
+// Componente auxiliar que re-centra el mapa cuando cambia el filtro activo.
+// Se usa useMap() en lugar de pasar la instancia como prop porque react-leaflet
+// solo expone el contexto del mapa dentro del árbol de MapContainer.
 function MapAutoZoom({ filtered }) {
   const map = useMap()
   const key = filtered.map(l => l.nombre).join(',')
@@ -72,8 +81,8 @@ function MapAutoZoom({ filtered }) {
   return null
 }
 
-// Centro verificado de UDLAP
-const UDLAP_CENTER = [19.0545, -98.2850]
+// Centro verificado de UDLAP (OSM: 19.0543, -98.2837)
+const UDLAP_CENTER = [19.0538, -98.2838]
 
 export default function Mapa() {
   const navigate = useNavigate()

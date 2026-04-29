@@ -81,7 +81,22 @@ export default function Pagos() {
           setPagos(pagosData)
           saveCache('pagos', pagosData)
         }
-        const movData = movSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+        // Normaliza dos esquemas de movimientos: usuario 181062 usa {titulo, cargo, abono, saldo}
+        // mientras que usuario 184020 usa {concepto, monto, tipo}. Se unifica antes de renderizar.
+        let saldoAcum = 0
+        const movData = movSnap.docs.map(d => {
+          const raw = { id: d.id, ...d.data() }
+          const titulo = raw.titulo || raw.concepto || '-'
+          const fecha = raw.fecha || '-'
+          if (raw.cargo !== undefined) {
+            return { ...raw, titulo, fecha }
+          }
+          const m = raw.monto || 0
+          const cargo = m < 0 ? Math.abs(m).toFixed(2) : '0.00'
+          const abono = m > 0 ? m.toFixed(2) : '0.00'
+          saldoAcum = Math.max(0, saldoAcum + (m < 0 ? Math.abs(m) : -m))
+          return { id: raw.id, titulo, fecha, monto: Math.abs(m), cargo, abono, saldo: saldoAcum.toFixed(2) }
+        })
         setMovimientos(movData)
         saveCache('movimientos', movData)
         setLoading(false)
@@ -175,10 +190,10 @@ export default function Pagos() {
     pdf.text('Unidades por acreditar', 162, y + 5)
     y += 7
     pdf.setFont('helvetica', 'normal')
-    pdf.text(pagos?.carrera || 'INGENIERÍA EN SISTEMAS COMPUTACIONALES', 16, y + 5)
+    pdf.text(String(pagos?.carrera || 'INGENIERÍA EN SISTEMAS COMPUTACIONALES'), 16, y + 5)
     pdf.text(String(pagos?.creditos || '-'), 100, y + 5)
-    pdf.text(pagos?.inscritas || '-', 140, y + 5)
-    pdf.text(pagos?.porAcreditar || '-', 172, y + 5)
+    pdf.text(String(pagos?.inscritas || '-'), 140, y + 5)
+    pdf.text(String(pagos?.porAcreditar || '-'), 172, y + 5)
     y += 12
 
     // Tabla movimientos
@@ -515,7 +530,7 @@ export default function Pagos() {
             {movimientos.map(m => (
               <div className="movimiento" key={m.id}>
                 <div>
-                  <div className="mov-titulo">{m.titulo}</div>
+                  <div className="mov-titulo">{m.titulo || m.concepto || '-'}</div>
                   <div className="mov-fecha">{m.fecha}</div>
                 </div>
                 <div className="mov-monto">${m.monto}</div>

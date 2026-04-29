@@ -1,3 +1,5 @@
+// Gestión de accesos rápidos en localStorage. PAGINAS_INFO es el registro canónico
+// de color e icono por ruta; se usa tanto en Home (botones rápidos) como en FavoritoBtn.
 const KEY = 'favoritos'
 
 export const PAGINAS_INFO = {

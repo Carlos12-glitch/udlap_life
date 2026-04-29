@@ -22,6 +22,7 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
+      // Firebase Auth requiere email completo; los usuarios solo ingresan su ID numérico.
       await signInWithEmailAndPassword(auth, `${id}@udlap.mx`, password)
       navigate('/biometric')
     } catch (e) {

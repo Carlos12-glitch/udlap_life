@@ -1,3 +1,5 @@
+// Lee el menú semanal de la colección 'menuSemanal' en Firestore (no es por usuario).
+// Cada documento representa un día; el campo clave es 'día' o 'dia' (ambos se normalizan).
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'

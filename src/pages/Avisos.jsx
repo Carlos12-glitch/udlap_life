@@ -1,3 +1,5 @@
+// Lee de la colección global 'avisos' (no es por usuario).
+// Los avisos fijados (fijado: true) se muestran antes que los recientes.
 import { useState, useEffect } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'

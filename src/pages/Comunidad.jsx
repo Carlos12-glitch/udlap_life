@@ -12,6 +12,8 @@ export default function Comunidad() {
   const [texto, setTexto] = useState('')
   const [nombre, setNombre] = useState('')
 
+  // El listener en tiempo real de 'publicaciones' está activo pero la UI de publicar
+  // no se renderiza en el JSX actual (funcionalidad preparada, no expuesta aún).
   useEffect(() => {
     const user = auth.currentUser
     if (user) setNombre(user.email.split('@')[0])

@@ -1,3 +1,5 @@
+// Pantalla decorativa de autenticación biométrica. No usa la Web Authentication API real;
+// la "verificación" es solo una animación que avanza automáticamente a /biometric/success.
 import { useNavigate } from 'react-router-dom'
 import campus from '../assets/udlap.jpg'
 import './Biometric.css'

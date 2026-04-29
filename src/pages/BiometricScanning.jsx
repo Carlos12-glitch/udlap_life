@@ -6,6 +6,7 @@ import './Biometric.css'
 export default function BiometricScanning() {
   const navigate = useNavigate()
 
+  // Avanza automáticamente tras 2 s para simular el escaneo biométrico.
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/biometric/success')

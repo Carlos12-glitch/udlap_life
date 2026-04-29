@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claves privadas — nunca subir a git
+scripts/serviceAccount.json
+.env

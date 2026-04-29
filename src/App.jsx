@@ -1,3 +1,5 @@
+// Árbol de rutas de la aplicación. La raíz "/" redirige a "/login" siempre;
+// no hay protección de rutas autenticadas — la verificación ocurre dentro de cada página.
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import BiometricAuth from './pages/BiometricAuth'

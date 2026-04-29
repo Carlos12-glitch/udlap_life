@@ -6,6 +6,8 @@ export default function BottomNav() {
   const location = useLocation()
   const path = location.pathname
 
+  // startsWith en lugar de igualdad exacta para que las sub-rutas (ej. /horario, /calificaciones)
+  // mantengan activa la pestaña padre (Escolar).
   const isActive = (routes) => routes.some(r => path.startsWith(r))
 
   return (

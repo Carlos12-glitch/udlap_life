@@ -1,3 +1,5 @@
+// Lee de la colección global 'eventos' (no es por usuario).
+// Soporta dos vistas: por categoría (filtro badge) y por fecha (date input).
 import { useState, useEffect } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'

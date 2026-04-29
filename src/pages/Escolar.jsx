@@ -7,11 +7,14 @@ import FavoritoBtn from '../components/FavoritoBtn'
 import BottomNav from '../components/BottomNav'
 import './Escolar.css'
 
+// Fallback para alumnos de una sola carrera sin progresoCarreras en Firestore.
+// Los alumnos de doble carrera usan el arreglo progresoCarreras con sus propios totales.
 const CREDITOS_TOTALES = 246
 
 export default function Escolar() {
   const navigate = useNavigate()
   const [creditos, setCreditos] = useState(() => loadCache('usuario')?.creditos ?? null)
+  const [progresoCarreras, setProgresoCarreras] = useState(() => loadCache('usuario')?.progresoCarreras ?? null)
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged(user => {
@@ -19,10 +22,13 @@ export default function Escolar() {
         const id = user.email.split('@')[0]
         getDoc(doc(db, 'usuarios', id)).then(snap => {
           if (snap.exists()) {
-            const val = snap.data().creditos ?? null
+            const data = snap.data()
+            const val = data.creditos ?? null
+            const prog = data.progresoCarreras ?? null
             setCreditos(val)
+            setProgresoCarreras(prog)
             const cached = loadCache('usuario') || {}
-            saveCache('usuario', { ...cached, creditos: val })
+            saveCache('usuario', { ...cached, creditos: val, progresoCarreras: prog })
           }
         })
       }
@@ -97,14 +103,35 @@ export default function Escolar() {
         </div>
 
         <h3 className="section-title">Progreso de carrera</h3>
-        <div className="progress-card">
-          <div className="progress-header">
-            <div><div className="prog-label">Créditos</div><div className="prog-val">{creditos ?? '...'} / {CREDITOS_TOTALES}</div></div>
-            <div><div className="prog-label">Completado</div><div className="prog-pct">{pct ?? '...'}%</div></div>
+        {progresoCarreras ? (
+          progresoCarreras.map((c, i) => {
+            const p = Math.round((c.creditos / c.total) * 100)
+            const r = c.total - c.creditos
+            const colores = ['#f97316', '#3b82f6']
+            return (
+              <div className="progress-card" key={i} style={{marginBottom: 12}}>
+                <div style={{fontSize: 12, fontWeight: 600, color: colores[i % 2], marginBottom: 6}}>{c.nombre}</div>
+                <div className="progress-header">
+                  <div><div className="prog-label">Créditos</div><div className="prog-val" style={{color: colores[i % 2]}}>{c.creditos} / {c.total}</div></div>
+                  <div><div className="prog-label">Completado</div><div className="prog-pct" style={{color: colores[i % 2]}}>{p}%</div></div>
+                </div>
+                <div className="progress-bar">
+                  <div className="progress-fill" style={{width: `${p}%`, background: colores[i % 2]}} />
+                </div>
+                <p className="prog-remaining">{r} créditos restantes</p>
+              </div>
+            )
+          })
+        ) : (
+          <div className="progress-card">
+            <div className="progress-header">
+              <div><div className="prog-label">Créditos</div><div className="prog-val">{creditos ?? '...'} / {CREDITOS_TOTALES}</div></div>
+              <div><div className="prog-label">Completado</div><div className="prog-pct">{pct ?? '...'}%</div></div>
+            </div>
+            <div className="progress-bar"><div className="progress-fill" style={{width: `${pct ?? 0}%`}} /></div>
+            <p className="prog-remaining">{restantes ?? '...'} créditos restantes para graduarse</p>
           </div>
-          <div className="progress-bar"><div className="progress-fill" style={{width: `${pct ?? 0}%`}} /></div>
-          <p className="prog-remaining">{restantes ?? '...'} créditos restantes para graduarse</p>
-        </div>
+        )}
 
         <div className="apoyo-card">
           <div className="apoyo-title">Orientación académica</div>

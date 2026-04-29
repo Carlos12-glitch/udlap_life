@@ -1,9 +1,14 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import FavoritoBtn from '../components/FavoritoBtn'
 import BottomNav from '../components/BottomNav'
 import './Transporte.css'
 
+// Todos los horarios y paradas están hardcodeados — no hay colección Firestore para transporte.
+// Si los horarios cambian por semestre, editar HORARIOS directamente.
 const RUTAS = [
   { nombre: 'Ruta Capu' },
   { nombre: 'Prolongación Reforma' },
@@ -11,6 +16,172 @@ const RUTAS = [
   { nombre: 'Ruta Puebla' },
   { nombre: 'Ruta Circuito' },
 ]
+
+const STOP_ICON = L.divIcon({
+  className: '',
+  html: `<svg width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 0C4.925 0 0 4.925 0 11c0 8.25 11 19 11 19s11-10.75 11-19C22 4.925 17.075 0 11 0z" fill="#e07040" stroke="white" stroke-width="1.5"/>
+    <circle cx="11" cy="11" r="4.5" fill="white"/>
+  </svg>`,
+  iconSize: [22, 30],
+  iconAnchor: [11, 30],
+  popupAnchor: [0, -30],
+})
+
+const RUTA_MAPA = {
+  'Ruta Puebla': {
+    center: [19.0553, -98.2833],
+    zoom: 14,
+    paradas: [
+      { id: 'A', nombre: 'Estacionamiento 1 (UDLAP)',           coords: [19.0553, -98.2833] },
+      { id: 'B', nombre: 'Colegio Ignacio Bernal',              coords: [19.0566, -98.2842] },
+      { id: 'C', nombre: 'Estacionamiento 5',                   coords: [19.0555, -98.2858] },
+      { id: 'D', nombre: 'Gimnasio Morris "Moe" Williams',      coords: [19.0573, -98.2862] },
+      { id: 'E', nombre: 'Salida Principal UDLAP',              coords: [19.0537, -98.2830] },
+      { id: '1', nombre: 'Recta y Aljojuca',                    coords: [19.0640, -98.2635] },
+      { id: '2', nombre: 'Rosendo Márquez (SCT)',               coords: [19.0490, -98.2515] },
+      { id: '6', nombre: '31 Sur y 29 Poniente',                coords: [19.0420, -98.2280] },
+      { id: '15', nombre: '43 Poniente y 16 de Septiembre',     coords: [19.0430, -98.2200] },
+      { id: '16', nombre: '43 Oriente y Blvd. 5 de Mayo',       coords: [19.0440, -98.2070] },
+      { id: '22', nombre: '23 Oriente y 2 Sur',                 coords: [19.0440, -98.2050] },
+      { id: '30', nombre: 'Circuito Juan Pablo II y 29 Sur',    coords: [19.0355, -98.2295] },
+      { id: '35', nombre: 'Recta y Av. Aljojuca (regreso)',     coords: [19.0640, -98.2635] },
+    ],
+    polyline: [
+      [19.0553, -98.2833],
+      [19.0566, -98.2842],
+      [19.0555, -98.2858],
+      [19.0573, -98.2862],
+      [19.0585, -98.2855],
+      [19.0600, -98.2845],
+      [19.0635, -98.2820],
+      [19.0645, -98.2760],
+      [19.0640, -98.2635],
+      [19.0490, -98.2515],
+      [19.0480, -98.2480],
+      [19.0460, -98.2390],
+      [19.0440, -98.2310],
+      [19.0420, -98.2280],
+      [19.0415, -98.2250],
+      [19.0420, -98.2210],
+      [19.0430, -98.2200],
+      [19.0440, -98.2140],
+      [19.0440, -98.2070],
+      [19.0445, -98.2050],
+      [19.0440, -98.2050],
+      [19.0435, -98.2080],
+      [19.0430, -98.2120],
+      [19.0420, -98.2180],
+      [19.0400, -98.2230],
+      [19.0370, -98.2270],
+      [19.0355, -98.2295],
+      [19.0380, -98.2320],
+      [19.0420, -98.2350],
+      [19.0470, -98.2480],
+      [19.0490, -98.2515],
+      [19.0640, -98.2635],
+      [19.0645, -98.2760],
+      [19.0635, -98.2820],
+      [19.0600, -98.2845],
+      [19.0585, -98.2855],
+      [19.0540, -98.2825],
+      [19.0537, -98.2830],
+      [19.0553, -98.2833],
+    ],
+  },
+  'Ruta Capu': {
+    center: [19.0553, -98.2833],
+    zoom: 13,
+    paradas: [
+      { id: 'A', nombre: 'Estacionamiento 1 (UDLAP)', coords: [19.0553, -98.2833] },
+      { id: 'E', nombre: 'Salida Principal UDLAP',    coords: [19.0537, -98.2830] },
+      { id: '1', nombre: 'Recta Cholula y 31 Poniente', coords: [19.0640, -98.2640] },
+      { id: '2', nombre: 'Blvd. Norte y Periférico',  coords: [19.0760, -98.2560] },
+      { id: '6', nombre: 'CAPU',                      coords: [19.0870, -98.2380] },
+    ],
+    polyline: [
+      [19.0553, -98.2833],
+      [19.0537, -98.2830],
+      [19.0640, -98.2640],
+      [19.0760, -98.2560],
+      [19.0820, -98.2480],
+      [19.0870, -98.2380],
+    ],
+  },
+  'Prolongación Reforma': {
+    center: [19.0553, -98.2833],
+    zoom: 13,
+    paradas: [
+      { id: 'A', nombre: 'Estacionamiento 1 (UDLAP)', coords: [19.0553, -98.2833] },
+      { id: 'B', nombre: 'Salida Principal UDLAP',    coords: [19.0537, -98.2830] },
+      { id: '1', nombre: 'Recta Cholula y Periférico', coords: [19.0640, -98.2640] },
+      { id: '7', nombre: 'Universidad y Reforma',     coords: [19.0530, -98.2210] },
+      { id: '9', nombre: 'Centro Histórico',          coords: [19.0425, -98.1980] },
+    ],
+    polyline: [
+      [19.0553, -98.2833],
+      [19.0537, -98.2830],
+      [19.0640, -98.2640],
+      [19.0640, -98.2450],
+      [19.0590, -98.2350],
+      [19.0530, -98.2210],
+      [19.0480, -98.2090],
+      [19.0425, -98.1980],
+    ],
+  },
+  'Ruta Paseo Bravo': {
+    center: [19.0553, -98.2833],
+    zoom: 13,
+    paradas: [
+      { id: 'A', nombre: 'Estacionamiento 1 (UDLAP)', coords: [19.0553, -98.2833] },
+      { id: 'B', nombre: 'Salida Principal UDLAP',    coords: [19.0537, -98.2830] },
+      { id: '1', nombre: 'Recta Cholula y 11 Sur',    coords: [19.0610, -98.2680] },
+      { id: '6', nombre: 'Paseo Bravo y Morelos',     coords: [19.0450, -98.2060] },
+      { id: '7', nombre: 'Parque Paseo Bravo',        coords: [19.0440, -98.2040] },
+    ],
+    polyline: [
+      [19.0553, -98.2833],
+      [19.0537, -98.2830],
+      [19.0610, -98.2680],
+      [19.0570, -98.2550],
+      [19.0520, -98.2350],
+      [19.0480, -98.2180],
+      [19.0450, -98.2060],
+      [19.0440, -98.2040],
+    ],
+  },
+  'Ruta Circuito': {
+    center: [19.0510, -98.2820],
+    zoom: 15,
+    paradas: [
+      { id: 'A', nombre: 'Estacionamiento 1 (UDLAP)', coords: [19.0553, -98.2833] },
+      { id: 'B', nombre: 'Estacionamiento 5',         coords: [19.0555, -98.2858] },
+      { id: 'C', nombre: 'Salida Principal UDLAP',    coords: [19.0537, -98.2830] },
+      { id: '1', nombre: 'Recta Cholula y Circuito',  coords: [19.0600, -98.2780] },
+      { id: '2', nombre: 'Circuito Juan Pablo II Sur', coords: [19.0480, -98.2780] },
+      { id: '4', nombre: '43 Sur y Circuito',         coords: [19.0455, -98.2820] },
+      { id: '6', nombre: 'Circuito y Recta Cholula',  coords: [19.0600, -98.2870] },
+    ],
+    polyline: [
+      [19.0553, -98.2833],
+      [19.0555, -98.2858],
+      [19.0537, -98.2830],
+      [19.0560, -98.2810],
+      [19.0600, -98.2780],
+      [19.0560, -98.2780],
+      [19.0510, -98.2785],
+      [19.0480, -98.2780],
+      [19.0470, -98.2800],
+      [19.0455, -98.2820],
+      [19.0465, -98.2860],
+      [19.0510, -98.2880],
+      [19.0560, -98.2880],
+      [19.0600, -98.2870],
+      [19.0580, -98.2855],
+      [19.0553, -98.2833],
+    ],
+  },
+}
 
 const HORARIOS = {
   'Ruta Capu': {
@@ -121,13 +292,63 @@ export default function Transporte() {
   const navigate = useNavigate()
   const [abierto, setAbierto] = useState(null)
   const [horarioAbierto, setHorarioAbierto] = useState(null)
+  const [rutaMapAbierta, setRutaMapAbierta] = useState(null)
 
   const toggle = (key) => setAbierto(abierto === key ? null : key)
 
   const datos = horarioAbierto ? HORARIOS[horarioAbierto] : null
 
+  const mapaData = rutaMapAbierta ? RUTA_MAPA[rutaMapAbierta] : null
+
   return (
     <div className="transporte-screen">
+      {/* ── Ruta mapa overlay ── */}
+      {rutaMapAbierta && mapaData && (
+        <div className="ruta-mapa-overlay">
+          <div className="ruta-mapa-header">
+            <button className="horario-ov-close" onClick={() => setRutaMapAbierta(null)}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" width="22" height="22">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <div className="horario-ov-titles">
+              <span className="horario-ov-sub">Rutas de transporte</span>
+              <span className="horario-ov-nombre">{rutaMapAbierta.toUpperCase()}</span>
+            </div>
+          </div>
+
+          <div className="ruta-mapa-contenedor">
+            <MapContainer
+              key={rutaMapAbierta}
+              center={mapaData.center}
+              zoom={mapaData.zoom}
+              style={{ width: '100%', height: '100%' }}
+              zoomControl={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Polyline positions={mapaData.polyline} color="#e07040" weight={4} opacity={0.85} />
+              {mapaData.paradas.map((p, i) => (
+                <Marker key={i} position={p.coords} icon={STOP_ICON}>
+                  <Popup>
+                    <div style={{ fontFamily: 'sans-serif', minWidth: 130 }}>
+                      <strong style={{ fontSize: 12, color: '#e07040' }}>{p.id}</strong>
+                      <div style={{ fontSize: 13, color: '#1f2937', marginTop: 2 }}>{p.nombre}</div>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+          </div>
+
+          <div className="ruta-mapa-footer">
+            <span className="ruta-mapa-hint">Toca un marcador para ver la parada</span>
+          </div>
+        </div>
+      )}
+
       {/* ── Horario overlay ── */}
       {horarioAbierto && datos && (
         <div className="horario-overlay">
@@ -249,7 +470,7 @@ export default function Transporte() {
                   <button className="ruta-btn-horarios" onClick={e => { e.stopPropagation(); setHorarioAbierto(r.nombre) }}>
                     Ver horarios
                   </button>
-                  <button className="ruta-btn-ruta">Ver ruta</button>
+                  <button className="ruta-btn-ruta" onClick={e => { e.stopPropagation(); setRutaMapAbierta(r.nombre) }}>Ver ruta</button>
                 </div>
               ))}
             </div>

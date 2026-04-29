@@ -8,7 +8,6 @@ import {
   updatePassword
 } from 'firebase/auth'
 import { auth, db, messaging, getToken, onMessage } from '../firebase'
-import { doc, setDoc } from 'firebase/firestore'
 import BottomNav from '../components/BottomNav'
 import './Settings.css'
 
@@ -68,43 +67,21 @@ export default function Settings() {
     localStorage.setItem('fontSize', fontSize)
   }, [fontSize])
 
-  async function obtenerTokenFCM() {
+  // Guarda el token FCM en Firestore para uso futuro (ej. envío desde servidor).
+  // Las notificaciones actuales usan la Notification API del navegador directamente
+  // porque la FCM Legacy API fue deprecada y Cloud Functions requiere plan Blaze.
+  async function guardarTokenFCM() {
     try {
       const vapidKey = import.meta.env.VITE_VAPID_KEY
-      if (!vapidKey || vapidKey === 'TU_VAPID_KEY_AQUI') return null
+      if (!vapidKey) return
       const token = await getToken(messaging, { vapidKey })
       const user = auth.currentUser
       if (user && token) {
         const id = user.email.split('@')[0]
         await setDoc(doc(db, 'fcm_tokens', id), { token, updated: new Date() }, { merge: true })
       }
-      return token
     } catch (e) {
       console.error('Error obteniendo token FCM:', e)
-      return null
-    }
-  }
-
-  async function enviarNotificacionFCM(token, title, body) {
-    const serverKey = import.meta.env.VITE_FCM_SERVER_KEY
-    if (!serverKey || serverKey === 'TU_SERVER_KEY_AQUI') return false
-    try {
-      const res = await fetch('https://fcm.googleapis.com/fcm/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `key=${serverKey}`,
-        },
-        body: JSON.stringify({
-          to: token,
-          notification: { title, body, icon: '/favicon.svg' },
-          priority: 'high',
-        }),
-      })
-      return res.ok
-    } catch (e) {
-      console.error('Error enviando FCM:', e)
-      return false
     }
   }
 
@@ -117,30 +94,18 @@ export default function Settings() {
     if (permiso === 'default') permiso = await Notification.requestPermission()
     if (permiso !== 'granted') { setNotifPush(false); return }
 
-    // Escuchar mensajes con app en primer plano
     onMessage(messaging, payload => {
       const { title, body } = payload.notification || {}
       if (title) new Notification(title, { body, icon: '/favicon.svg' })
     })
 
-    const token = await obtenerTokenFCM()
-    const enviado = token && await enviarNotificacionFCM(
-      token, 'UDLAPLife', '¡Notificaciones activadas! Recibirás avisos del campus.'
-    )
-    if (!enviado) {
-      new Notification('UDLAPLife', { body: '¡Notificaciones activadas!', icon: '/favicon.svg' })
-    }
+    await guardarTokenFCM()
+    new Notification('UDLAPLife', { body: '¡Notificaciones activadas! Recibirás avisos del campus.', icon: '/favicon.svg' })
   }
 
   async function enviarNotifPrueba() {
     if (Notification.permission !== 'granted') { await activarNotificaciones(true); return }
-    const token = await obtenerTokenFCM()
-    const enviado = token && await enviarNotificacionFCM(
-      token, 'UDLAPLife — Prueba 🎓', '¡Funciona! Recibirás notificaciones aunque la app esté cerrada.'
-    )
-    if (!enviado) {
-      new Notification('UDLAPLife — Prueba', { body: 'Notificación local de prueba activa.', icon: '/favicon.svg' })
-    }
+    new Notification('UDLAPLife — Prueba', { body: '¡Funciona! Recibirás notificaciones mientras la app esté abierta.', icon: '/favicon.svg' })
   }
 
   const iniciales = usuario?.nombre

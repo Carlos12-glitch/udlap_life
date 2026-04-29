@@ -6,6 +6,8 @@ import './Biometric.css'
 export default function BiometricSuccess() {
   const navigate = useNavigate()
 
+  // Redirige a Home tras mostrar el checkmark 1.8 s — diferente a 2 s de Scanning
+  // para que la transición se sienta más fluida al encadenarse.
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/home')

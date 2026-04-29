@@ -1,3 +1,5 @@
+// Inicialización de Firebase. getToken y onMessage se re-exportan aquí para que los
+// componentes no necesiten importar firebase/messaging directamente (evita instancias duplicadas).
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
