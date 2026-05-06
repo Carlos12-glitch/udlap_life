@@ -1,0 +1,31 @@
+// Pantalla decorativa de autenticación biométrica. No usa la Web Authentication API real;
+// la "verificación" es solo una animación que avanza automáticamente a /biometric/success.
+import { useNavigate } from 'react-router-dom'
+import campus from '../assets/udlap.jpg'
+import './Biometric.css'
+
+export default function BiometricAuth() {
+  const navigate = useNavigate()
+
+  return (
+    <div className="biometric-screen">
+      <div className="bio-bg" style={{backgroundImage: `url(${campus})`}} />
+      <div className="biometric-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.5" width="64" height="64">
+          <path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
+        </svg>
+      </div>
+
+      <h2 className="biometric-title">Autenticación Biométrica</h2>
+      <p className="biometric-subtitle">Por favor coloca tu dedo en el sensor</p>
+
+      <button className="bio-btn-outline" onClick={() => navigate('/biometric/scanning')}>
+        Usar Reconocimiento Facial
+      </button>
+
+      <button className="bio-btn-text" onClick={() => navigate('/login')}>
+        Volver al Inicio de Sesión
+      </button>
+    </div>
+  )
+}

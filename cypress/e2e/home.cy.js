@@ -1,0 +1,142 @@
+describe('Home', () => {
+  it('flujo completo: login → home → búsqueda → avisos → eventos → perfil', () => {
+    // Login
+    cy.visit('/login')
+    cy.wait(1100)
+    cy.get('input[placeholder="Ingresa tu ID"]').type(Cypress.env('UDLAP_ID'), { delay: 150 })
+    cy.wait(900)
+    cy.get('input[placeholder="Ingresa tu contraseña"]').type(Cypress.env('UDLAP_PASSWORD'), { delay: 150 })
+    cy.wait(900)
+    cy.get('button.submit-btn').click()
+    cy.url({ timeout: 10000 }).should('include', '/biometric')
+    cy.wait(1100)
+
+    // Flujo biométrico
+    cy.contains('Usar Reconocimiento Facial').click()
+    cy.wait(1000)
+    cy.url().should('include', '/biometric/scanning')
+    cy.wait(2500)
+    cy.url().should('include', '/biometric/success')
+    cy.wait(2200)
+    cy.url().should('include', '/home')
+    cy.wait(1400)
+
+    // Pantalla Home — barra de búsqueda
+    cy.get('.user-info').should('be.visible')
+    cy.wait(900)
+    cy.get('.search-bar input').type('Avisos', { delay: 150 })
+    cy.wait(1100)
+    cy.get('.search-results').should('be.visible')
+    cy.wait(1000)
+    cy.get('.search-result-item').first().should('be.visible')
+    cy.wait(1000)
+    cy.get('.search-bar button').click()
+    cy.wait(900)
+
+    // Navegar a Avisos
+    cy.contains('h3', 'Avisos').parent().contains('Ver todos').click()
+    cy.wait(1100)
+    cy.url().should('include', '/avisos')
+    cy.wait(1100)
+
+    // Filtrar en Avisos: Urgente → Académico → Eventos
+    cy.get('.filtros').should('be.visible')
+    cy.wait(900)
+    cy.get('.filtro-btn').contains('Urgente').click()
+    cy.wait(1100)
+    cy.get('.filtro-btn.active').should('contain', 'Urgente')
+    cy.wait(1000)
+    cy.get('.filtro-btn').contains('Académico').click()
+    cy.wait(1100)
+    cy.get('.filtro-btn.active').should('contain', 'Académico')
+    cy.wait(1000)
+    cy.get('.filtro-btn').contains('Eventos').click()
+    cy.wait(1100)
+    cy.get('.filtro-btn.active').should('contain', 'Eventos')
+    cy.wait(1000)
+
+    // Volver a Home
+    cy.go('back')
+    cy.url({ timeout: 6000 }).should('include', '/home')
+    cy.wait(1100)
+
+    // Navegar a Eventos
+    cy.contains('h3', 'Eventos').parent().contains('Ver todos').click()
+    cy.wait(1100)
+    cy.url().should('include', '/eventos')
+    cy.wait(1100)
+
+    // Filtrar en Eventos: Académicos → Deportes → Cultural
+    cy.get('.filtros').should('be.visible')
+    cy.wait(900)
+    cy.get('.filtro-btn').contains('Académicos').click()
+    cy.wait(1100)
+    cy.get('.filtro-btn.active').should('contain', 'Académicos')
+    cy.wait(1000)
+    cy.get('.filtro-btn').contains('Deportes').click()
+    cy.wait(1100)
+    cy.get('.filtro-btn.active').should('contain', 'Deportes')
+    cy.wait(1000)
+    cy.get('.filtro-btn').contains('Cultural').click()
+    cy.wait(1100)
+    cy.get('.filtro-btn.active').should('contain', 'Cultural')
+    cy.wait(1000)
+
+    // Volver a Home
+    cy.go('back')
+    cy.url({ timeout: 6000 }).should('include', '/home')
+    cy.wait(1100)
+
+    // Navegar al Perfil
+    cy.get('.user-info').click()
+    cy.wait(1000)
+    cy.url().should('include', '/profile')
+    cy.wait(1100)
+
+    // Desplazarse por las secciones del perfil
+    cy.contains('Información académica').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Información académica').should('be.visible')
+    cy.wait(1000)
+    cy.contains('Información de contacto').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Información de contacto').should('be.visible')
+    cy.wait(1000)
+    cy.contains('Información personal').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Información personal').should('be.visible')
+    cy.wait(1000)
+    cy.contains('Cerrar sesión').scrollIntoView()
+    cy.wait(1100)
+
+    // Navegar a Configuración desde el perfil
+    cy.scrollTo('top')
+    cy.wait(900)
+    cy.get('.settings-btn').click()
+    cy.wait(1000)
+    cy.url().should('include', '/settings')
+    cy.wait(1100)
+
+    // Desplazarse por las secciones de Configuración
+    cy.contains('CUENTA').scrollIntoView()
+    cy.wait(1000)
+    cy.contains('Contraseña').should('be.visible')
+    cy.wait(1000)
+    cy.contains('NOTIFICACIONES').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Notificaciones push').should('be.visible')
+    cy.wait(1000)
+    cy.contains('APARIENCIA').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Modo oscuro').should('be.visible')
+    cy.wait(1000)
+    cy.contains('PRIVACIDAD').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Política de privacidad').should('be.visible')
+    cy.wait(1000)
+    cy.contains('SOPORTE').scrollIntoView()
+    cy.wait(1100)
+    cy.contains('Ayuda y soporte').should('be.visible')
+    cy.wait(1000)
+  })
+})

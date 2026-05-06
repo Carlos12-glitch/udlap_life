@@ -1,0 +1,365 @@
+.transporte-screen { background: #f9fafb; min-height: 100vh; }
+
+.transporte-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 24px;
+}
+
+.transporte-header h1 { color: white; font-size: 26px; font-weight: 700; margin: 0 0 4px; }
+.transporte-header p { color: rgba(255,255,255,0.8); font-size: 14px; margin: 0 0 16px; }
+
+.trans-stats { display: flex; gap: 12px; }
+
+.tstat {
+  flex: 1;
+  background: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.tstat-icon { font-size: 20px; }
+.tstat-label { font-size: 10px; opacity: 0.8; }
+.tstat-val { font-size: 22px; font-weight: 700; }
+.tstat-val.small { font-size: 14px; font-weight: 600; }
+
+.transporte-content { padding: 16px; }
+
+.aviso-servicio {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #92400e;
+  margin-bottom: 20px;
+}
+
+.transporte-content h3 { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
+
+.transporte-seccion-label {
+  font-size: 15px;
+  font-weight: 800;
+  color: #e07040;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.transporte-desc {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.acordeon-card {
+  border: 2px solid #e07040;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.acordeon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 16px;
+}
+
+.acordeon-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0d9488;
+}
+
+.acordeon-body {
+  padding: 4px 16px 16px;
+  cursor: default;
+}
+
+.punto-venta {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.punto-venta:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.punto-nombre { font-size: 15px; font-weight: 700; color: #1f2937; margin-bottom: 2px; }
+.punto-desc { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
+
+.punto-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.punto-fila svg { flex-shrink: 0; }
+
+body.dark-mode .transporte-desc { color: #d1d5db; }
+body.dark-mode .acordeon-card { border-color: #e07040; background: #1f2937; }
+body.dark-mode .acordeon-titulo { color: #2dd4bf; }
+body.dark-mode .punto-nombre { color: #f9fafb; }
+body.dark-mode .punto-fila { color: #d1d5db; }
+body.dark-mode .punto-venta { border-color: #374151; }
+
+.ruta-nueva-card {
+  background: white;
+  border: 2.5px solid #0d9488;
+  border-radius: 20px;
+  padding: 28px 20px 24px;
+  margin-bottom: 16px;
+  margin-left: -4px;
+  margin-right: -4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.ruta-nueva-card:last-child { margin-bottom: 4px; }
+
+.ruta-nueva-nombre {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0d9488;
+  text-align: center;
+}
+
+.ruta-btn-horarios {
+  width: 75%;
+  padding: 14px;
+  background: #0d9488;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ruta-btn-ruta {
+  width: 75%;
+  padding: 14px;
+  background: #e07040;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.boletos-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.boletos-card h3 { font-size: 15px; font-weight: 700; color: #1f2937; margin-bottom: 10px; }
+.boleto-item { font-size: 13px; color: #6b7280; margin-bottom: 8px; line-height: 1.5; }
+
+.ayuda-card {
+  background: #0891b2;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.ayuda-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.ayuda-card p { font-size: 13px; opacity: 0.85; margin: 0 0 14px; }
+
+.llamar-btn {
+  background: white;
+  color: #0891b2;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+body.dark-mode .transporte-content h3 { color: #f9fafb; }
+body.dark-mode .ruta-nueva-card { background: #111827; border-color: #0d9488; }
+body.dark-mode .ruta-nueva-nombre { color: #2dd4bf; }
+body.dark-mode .boletos-card { background: #1f2937; box-shadow: none; }
+body.dark-mode .boletos-card h3 { color: #f9fafb; }
+
+/* ── Ruta mapa overlay ── */
+.ruta-mapa-overlay {
+  position: fixed;
+  inset: 0;
+  background: #f9fafb;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ruta-mapa-header {
+  background: linear-gradient(135deg, #ef4444, #e07040);
+  padding: 50px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.ruta-mapa-contenedor {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ruta-mapa-footer {
+  background: white;
+  padding: 10px 16px;
+  text-align: center;
+  flex-shrink: 0;
+  border-top: 1px solid #f3f4f6;
+}
+
+.ruta-mapa-hint {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+body.dark-mode .ruta-mapa-overlay { background: #111827; }
+body.dark-mode .ruta-mapa-footer { background: #1f2937; border-top-color: #374151; }
+
+/* ── Horario overlay ── */
+.horario-overlay {
+  position: fixed;
+  inset: 0;
+  background: #f9fafb;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.horario-ov-header {
+  background: linear-gradient(135deg, #4a7c30, #6aab3a);
+  padding: 50px 20px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.horario-ov-close {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.horario-ov-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.horario-ov-sub {
+  color: rgba(255,255,255,0.8);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.horario-ov-nombre {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.horario-tabla-wrap {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+}
+
+.horario-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.horario-tabla thead tr {
+  background: #4a7c30;
+}
+
+.th-paradas,
+.th-horarios {
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 12px;
+  text-align: left;
+  letter-spacing: 0.3px;
+}
+
+.th-horarios {
+  text-align: center;
+  border-left: 2px solid rgba(255,255,255,0.3);
+}
+
+.hrow-even { background: #e8f5d8; }
+.hrow-odd  { background: white; }
+
+.hcol-id {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4a7c30;
+  padding: 7px 8px 7px 12px;
+  white-space: nowrap;
+  width: 28px;
+}
+
+.hcol-nombre {
+  font-size: 12px;
+  color: #1f2937;
+  padding: 7px 12px 7px 4px;
+  line-height: 1.3;
+}
+
+.hcol-hora {
+  font-size: 12px;
+  color: #374151;
+  padding: 7px 8px;
+  text-align: center;
+  white-space: nowrap;
+  border-left: 1px solid #d1fae5;
+  font-variant-numeric: tabular-nums;
+}
+
+/* dark mode horario */
+body.dark-mode .horario-overlay { background: #111827; }
+body.dark-mode .horario-tabla { background: #1f2937; box-shadow: none; }
+body.dark-mode .hrow-even { background: #1a3020; }
+body.dark-mode .hrow-odd  { background: #1f2937; }
+body.dark-mode .hcol-nombre { color: #f9fafb; }
+body.dark-mode .hcol-hora { color: #d1d5db; border-left-color: #374151; }

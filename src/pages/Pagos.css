@@ -1,0 +1,526 @@
+.pagos-screen { background: #f9fafb; min-height: 100vh; }
+
+.pagos-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pagos-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagos-header h1 { color: white; font-size: 26px; font-weight: 700; margin: 0; }
+.pagos-header p { color: rgba(255,255,255,0.8); font-size: 13px; margin: 0; }
+
+.help-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pago-stat-card {
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.pstat-label { font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 4px; }
+.pstat-val { font-size: 28px; font-weight: 700; color: white; }
+
+.pagos-content { padding: 16px; }
+
+.apoyo-section { margin-bottom: 20px; }
+.apoyo-section h3 { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 10px; }
+
+.apoyo-badge {
+  background: #eff6ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.apoyo-name { font-size: 14px; font-weight: 600; color: #1f2937; }
+.apoyo-pct { font-size: 14px; color: #3b82f6; }
+
+.pagos-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+
+.pagos-link {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  cursor: pointer;
+}
+
+.pagos-link-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.pagos-link-icon.purple { background: #f3e8ff; }
+.pagos-link-icon.orange { background: #fff7ed; }
+
+.pagos-link-info { flex: 1; }
+.pagos-link-title { font-size: 14px; font-weight: 600; color: #1f2937; }
+.pagos-link-desc { font-size: 12px; color: #9ca3af; }
+
+.arrow { color: #9ca3af; font-size: 18px; }
+
+.descargar-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+
+.descargar-btn:hover { opacity: 0.9; }
+
+.descarga-ok {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.movimientos h3 { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
+
+.movimiento {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.mov-titulo { font-size: 14px; font-weight: 500; color: #1f2937; }
+.mov-fecha { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.mov-monto { font-size: 16px; font-weight: 700; color: #1f2937; }
+
+/* ── Contactos ── */
+.contactos-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.contactos-close {
+  position: absolute;
+  left: 20px;
+  top: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.contactos-header-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.contactos-content {
+  padding: 20px 16px;
+}
+
+.contactos-seccion {
+  font-size: 16px;
+  font-weight: 800;
+  color: #f97316;
+  margin-bottom: 14px;
+  letter-spacing: 0.3px;
+}
+
+.contactos-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background: white;
+}
+
+.contactos-search input {
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: #374151;
+  flex: 1;
+  background: transparent;
+}
+
+.contactos-search input::placeholder { color: #9ca3af; }
+
+.contactos-card {
+  border: 2px solid #0d9488;
+  border-radius: 14px;
+  background: white;
+  overflow: hidden;
+  padding: 0 16px;
+}
+
+.contacto-item {
+  padding: 16px 0 8px;
+}
+
+.contacto-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d9488;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.contacto-ext-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #374151;
+  padding-bottom: 8px;
+}
+
+.contacto-mail-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.contacto-sep {
+  height: 1.5px;
+  background: #f97316;
+  margin: 0 -16px;
+}
+
+body.dark-mode .contactos-search { background: #1f2937; border-color: #374151; }
+body.dark-mode .contactos-search input { color: #f9fafb; }
+body.dark-mode .contactos-card { background: #1f2937; border-color: #0d9488; }
+body.dark-mode .contacto-nombre { color: #2dd4bf; }
+body.dark-mode .contacto-ext-row { color: #d1d5db; }
+
+/* ── Bancos para pago ── */
+.bancos-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bancos-close {
+  position: absolute;
+  left: 20px;
+  top: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.bancos-header-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.bancos-ref-box {
+  background: #f9fafb;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.bancos-ref-hint { font-size: 12px; color: #9ca3af; margin-bottom: 4px; }
+.bancos-ref-num { font-size: 26px; font-weight: 800; color: #1f2937; letter-spacing: 1px; }
+.bancos-ref-nota { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+
+body.dark-mode .bancos-ref-box { background: #1f2937; border-color: #374151; }
+body.dark-mode .bancos-ref-num { color: #f9fafb; }
+
+.bancos-list {
+  background: white;
+  padding: 0 20px;
+}
+
+.banco-item {
+  padding: 24px 0;
+  border-bottom: 1.5px solid #f97316;
+}
+
+.banco-item:last-child { border-bottom: none; }
+
+.banco-logo-name {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.banco-dato-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.banco-dato-label {
+  font-weight: 700;
+  color: #1f2937;
+  white-space: nowrap;
+  min-width: 110px;
+}
+
+.banco-dato-val {
+  color: #374151;
+}
+
+body.dark-mode .bancos-list { background: #111827; }
+body.dark-mode .banco-item { border-color: #f97316; }
+body.dark-mode .banco-dato-label { color: #f9fafb; }
+body.dark-mode .banco-dato-val { color: #d1d5db; }
+
+.bancos-info-card {
+  background: #fefce8;
+  border: 1.5px solid #fde68a;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.bancos-info-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.bancos-info-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bancos-info-lista li {
+  font-size: 14px;
+  color: #374151;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.bancos-info-lista li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #6b7280;
+}
+
+body.dark-mode .bancos-info-card {
+  background: #1c1a07;
+  border-color: #854d0e;
+}
+
+body.dark-mode .bancos-info-title { color: #f9fafb; }
+body.dark-mode .bancos-info-lista li { color: #d1d5db; }
+
+/* ── Facturación ── */
+.bancos-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.fact-header {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  padding: 50px 20px 28px;
+}
+
+.fact-header h1 { color: white; font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+.fact-header p  { color: rgba(255,255,255,0.85); font-size: 14px; margin: 0; }
+
+.fact-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 14px;
+}
+
+.fact-mes-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+}
+
+.fact-mes-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.fact-mes-nombre {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.fact-mes-fecha {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.fact-mes-fecha strong { color: #1f2937; }
+
+.fact-solicitud-card {
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.fact-solicitud-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.fact-solicitud-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.fact-solicitud-desc {
+  font-size: 14px;
+  color: #6b7280;
+  padding-left: 32px;
+}
+
+body.dark-mode .fact-mes-card { background: #1f2937; }
+body.dark-mode .fact-mes-nombre,
+body.dark-mode .fact-mes-fecha strong,
+body.dark-mode .fact-section-title,
+body.dark-mode .fact-solicitud-title { color: #f9fafb; }
+body.dark-mode .fact-mes-fecha { color: #9ca3af; }
+body.dark-mode .fact-solicitud-card { background: #1e3a5f; border-color: #1d4ed8; }
+
+.fact-ayuda-card {
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.fact-ayuda-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.fact-ayuda-desc {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.fact-ayuda-item {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.fact-ayuda-item strong { color: #1f2937; }
+
+body.dark-mode .fact-ayuda-card { background: #1f2937; border-color: #374151; }
+body.dark-mode .fact-ayuda-title { color: #f9fafb; }
+body.dark-mode .fact-ayuda-desc { color: #9ca3af; }
+body.dark-mode .fact-ayuda-item { color: #d1d5db; }
+body.dark-mode .fact-ayuda-item strong { color: #f9fafb; }
+
+/* ── Dark mode: botones y apoyo ── */
+body.dark-mode .pagos-screen { background: #111827; }
+body.dark-mode .pagos-content { background: #111827; }
+
+body.dark-mode .pagos-link {
+  background: #1f2937;
+  box-shadow: none;
+}
+body.dark-mode .pagos-link-title { color: #f9fafb; }
+body.dark-mode .pagos-link-desc  { color: #9ca3af; }
+
+body.dark-mode .apoyo-section h3 { color: #f9fafb; }
+body.dark-mode .apoyo-badge {
+  background: #1e3a5f;
+}
+body.dark-mode .apoyo-name { color: #f9fafb; }
+
+body.dark-mode .movimientos h3 { color: #f9fafb; }
+body.dark-mode .movimiento {
+  background: #1f2937;
+  box-shadow: none;
+}
+body.dark-mode .mov-titulo { color: #f9fafb; }
+body.dark-mode .mov-fecha  { color: #9ca3af; }
+body.dark-mode .mov-monto  { color: #f9fafb; }
